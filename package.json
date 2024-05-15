@@ -1,0 +1,18 @@
+{
+  "name": "timesheet-automate",
+  "version": "1.0.0",
+  "description": "Application to Automate filling out Timesheet PDF's by directly accessing user's Google Calendar to extract work hours and autofill the timesheet.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/local-auth": "^2.1.0",
+    "axios": "^1.6.8",
+    "googleapis": "^105.0.0",
+    "pdf-lib": "^1.17.1"
+  }
+}
