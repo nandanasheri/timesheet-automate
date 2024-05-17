@@ -68,29 +68,40 @@ async function authorize() {
 }
 
 /**
+ * Function to format time correctly for pdf
+ * @param {*} hours 
+ * @param {*} minutes 
+ * @returns formatted time
+ */
+function formatTime(hours, minutes) {
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+  hours = hours % 12;
+  hours = hours ? hours : 12; // The hour '0' should be '12'
+  // Format minutes to always have two digits
+  const minutesStr = minutes < 10 ? '0' + minutes : minutes;
+  return hours+":"+minutesStr+" "+ampm;
+
+}
+
+/**
  * Lists the next 10 events on the user's primary calendar.
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
-async function listCalendars(auth) {
+async function getWorkHours(auth) {
   const calendar = google.calendar({version: 'v3', auth});
   // Retrieve all calendars
   const res = await calendar.calendarList.list();
-  // const events = res.data.items;
-  // if (!events || events.length === 0) {
-  //   console.log('No upcoming events found.');
-  //   return;
-  // }
-  // events.map((event, i) => {
-  //   const start = event.start.dateTime || event.start.date;
-  //   console.log(`${start} - ${event.summary}`);
-  // });
+
   // Term to search by - could be user input in the future
   const keyword = "TA";
   const startDate = "2024-5-12";
   const endDate = "2024-5-25";
   const allCalendars = res.data.items;
   const workEvents = [];
+
   for (let i = 0; i < allCalendars.length; i++) {
+
+    // request to Calendar API - only TA events according within current timesheet period
     const allEvents = await calendar.events.list({
     calendarId: allCalendars[i].id,
     timeMin: new Date(startDate).toISOString(),
@@ -99,8 +110,33 @@ async function listCalendars(auth) {
     q: keyword,
     orderBy: 'startTime',
     });
-    console.log(allEvents.data.items);
+
+    if (allEvents.data.items.length > 0) {
+
+      for (let j = 0; j < allEvents.data.items.length; j++) {
+
+        const startdate = new Date(allEvents.data.items[j].start.dateTime);
+        const enddate = new Date(allEvents.data.items[j].end.dateTime);
+        let year = startdate.getFullYear();
+        let month = startdate.getMonth()+1;
+        let dt = startdate.getDate();
+
+        if (dt < 10) {
+          dt = '0' + dt;
+        }
+        if (month < 10) {
+          month = '0' + month;
+        }
+        
+        workEvents.push({
+          date: month + '-' + dt + '-' + year,
+          startTime: formatTime(startdate.getHours(), startdate.getMinutes()),
+          endTime: formatTime(enddate.getHours(), enddate.getMinutes())
+        });
+      }
+    }
   }
+  return Promise.resolve(workEvents);
 }
 
 
@@ -167,7 +203,7 @@ async function saveFilledForm(pdfDoc, output) {
 	}
 }
 
-async function main() {
+async function generatepdf() {
 	const input = 'https://www.cs.uic.edu/~grad/Student_Time_Sheet_Fillable.pdf';
 	const output = 'output.pdf';
 
@@ -175,5 +211,5 @@ async function main() {
 	await saveFilledForm(pdfDoc, output);
 }
 
-//main().catch((err) => console.error('Error:', err));
-authorize().then(listCalendars).catch(console.error);
+//generatepdf().catch((err) => console.error('Error:', err));
+authorize().then(getWorkHours).catch(console.error);
