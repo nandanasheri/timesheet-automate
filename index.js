@@ -71,26 +71,38 @@ async function authorize() {
  * Lists the next 10 events on the user's primary calendar.
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
-async function listEvents(auth) {
+async function listCalendars(auth) {
   const calendar = google.calendar({version: 'v3', auth});
-  const res = await calendar.events.list({
-    calendarId: 'primary',
-    timeMin: new Date().toISOString(),
-    maxResults: 10,
+  // Retrieve all calendars
+  const res = await calendar.calendarList.list();
+  // const events = res.data.items;
+  // if (!events || events.length === 0) {
+  //   console.log('No upcoming events found.');
+  //   return;
+  // }
+  // events.map((event, i) => {
+  //   const start = event.start.dateTime || event.start.date;
+  //   console.log(`${start} - ${event.summary}`);
+  // });
+  // Term to search by - could be user input in the future
+  const keyword = "TA";
+  const startDate = "2024-5-12";
+  const endDate = "2024-5-25";
+  const allCalendars = res.data.items;
+  const workEvents = [];
+  for (let i = 0; i < allCalendars.length; i++) {
+    const allEvents = await calendar.events.list({
+    calendarId: allCalendars[i].id,
+    timeMin: new Date(startDate).toISOString(),
+    timeMax: new Date(endDate).toISOString(),
     singleEvents: true,
+    q: keyword,
     orderBy: 'startTime',
-  });
-  const events = res.data.items;
-  if (!events || events.length === 0) {
-    console.log('No upcoming events found.');
-    return;
+    });
+    console.log(allEvents.data.items);
   }
-  console.log('Upcoming 10 events:');
-  events.map((event, i) => {
-    const start = event.start.dateTime || event.start.date;
-    console.log(`${start} - ${event.summary}`);
-  });
 }
+
 
 
 // function to fill out PDF Form using pdf-lib - define text fields according to timesheet template
@@ -164,4 +176,4 @@ async function main() {
 }
 
 //main().catch((err) => console.error('Error:', err));
-authorize().then(listEvents).catch(console.error);
+authorize().then(listCalendars).catch(console.error);
