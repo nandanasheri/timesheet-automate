@@ -80,8 +80,53 @@ function formatTime(hours, minutes) {
   // Format minutes to always have two digits
   const minutesStr = minutes < 10 ? '0' + minutes : minutes;
   return hours+":"+minutesStr+" "+ampm;
-
 }
+
+/**
+ * for number of hours worked for each time period
+ */
+ function getNumberOfHours (start, end) {
+  const startsplit = start.split(' ');
+  const endsplit = end.split(' ');
+  const starttime = startsplit[0].split(":");
+  const endtime = endsplit[0].split(":");
+  let starthours =  parseInt(starttime[0], 10);
+  let endhours =  parseInt(endtime[0], 10);
+  let startmin = 0.0;
+  let endmin =  0.0;
+
+  // Convert to 24 hour time
+  if (startsplit[1] === "PM" && starttime[0] != "12") {
+    starthours += 12;
+  }
+  if (endsplit[1] === "PM" && endtime[0] != "12") {
+    endhours += 12;
+  }
+
+  if (starttime[1] === "15") {
+    startmin = 0.25;
+  }
+  else if (starttime[1] === "30") {
+    startmin = 0.5;
+  }
+  else if (starttime[1] === "45") {
+    startmin = 0.75;
+  }
+
+  if (endtime[1] === "15") {
+    endmin = 0.25;
+  }
+  else if (endtime[1] === "30") {
+    endmin = 0.5;
+  }
+  else if (endtime[1] === "45") {
+    endmin = 0.75;
+  }
+  
+  let diff = (endhours+endmin) - (starthours+startmin)
+  return diff+" ";
+
+ }
 
 /**
  * Lists the next 10 events on the user's primary calendar.
@@ -141,8 +186,6 @@ async function getWorkHours(auth) {
   return workEvents;
 }
 
-
-
 // function to fill out PDF Form using pdf-lib - define text fields according to timesheet template
 async function fillPdfForm(input, user, workEvents ) {
 	try {
@@ -178,8 +221,8 @@ async function fillPdfForm(input, user, workEvents ) {
     const classCol1 = ['OutRow1', 'OutRow2', 'OutRow3', 'OutRow4', 'OutRow5', 'OutRow6', 'OutRow7'];
     const classCol2 = ['OutRow1_3', 'OutRow2_3', 'OutRow3_3', 'OutRow4_3', 'OutRow5_3', 'OutRow6_3', 'OutRow7_3', 'OutRow8_3'];
 
-    const totalHoursCol1 = ['TotalHoursRow1', 'TotalHoursRow2', 'TotalHoursRow3', 'TotalHoursRow4', 'TotalHoursRow5', 'TotalHoursRow6', 'TotalHoursRow7'];
-    const totalHoursCol2 = ['TotalHoursRow1_2', 'TotalHoursRow2_2', 'TotalHoursRow3_2', 'TotalHoursRow4_2', 'TotalHoursRow5_2', 'TotalHoursRow6_2', 'TotalHoursRow7_2', 'TotalHoursRow8'];
+    const totalHoursCol1 = ['Total HoursRow1', 'Total HoursRow2', 'Total HoursRow3', 'Total HoursRow4', 'Total HoursRow5', 'Total HoursRow6', 'Total HoursRow7'];
+    const totalHoursCol2 = ['Total HoursRow1_2', 'Total HoursRow2_2', 'Total HoursRow3_2', 'Total HoursRow4_2', 'Total HoursRow5_2', 'Total HoursRow6_2', 'Total HoursRow7_2', 'Total HoursRow8'];
         
 		// Set the values for the form fields.
 		nameField.setText(user.firstName + " " + user.lastName);
@@ -201,6 +244,7 @@ async function fillPdfForm(input, user, workEvents ) {
         form.getTextField(inCol1[j]).setText(workEvents[i].startTime);
         form.getTextField(outCol1[j]).setText(workEvents[i].endTime);
         form.getTextField(classCol1[j]).setText(classname);
+        form.getTextField(totalHoursCol1[j]).setText(getNumberOfHours(workEvents[i].startTime, workEvents[i].endTime));
         j += 1;
       }
 
@@ -210,6 +254,7 @@ async function fillPdfForm(input, user, workEvents ) {
         form.getTextField(inCol3[k]).setText(workEvents[i].startTime);
         form.getTextField(outCol3[k]).setText(workEvents[i].endTime);
         form.getTextField(classCol2[k]).setText(classname);
+        form.getTextField(totalHoursCol2[k]).setText(getNumberOfHours(workEvents[i].startTime, workEvents[i].endTime));
         k += 1;
       }
     }
