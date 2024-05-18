@@ -122,9 +122,9 @@ function formatTime(hours, minutes) {
   else if (endtime[1] === "45") {
     endmin = 0.75;
   }
-  
+
   let diff = (endhours+endmin) - (starthours+startmin)
-  return diff+" ";
+  return diff;
 
  }
 
@@ -236,6 +236,8 @@ async function fillPdfForm(input, user, workEvents ) {
     let j = 0;
     let k = 0;
     const classname = "CS141";
+    let firsthalftotal = 0.0;
+    let secondhalftotal = 0.0;
     for (let i = 0; i < workEvents.length; i++) {
 
       // first half of pdf
@@ -244,7 +246,9 @@ async function fillPdfForm(input, user, workEvents ) {
         form.getTextField(inCol1[j]).setText(workEvents[i].startTime);
         form.getTextField(outCol1[j]).setText(workEvents[i].endTime);
         form.getTextField(classCol1[j]).setText(classname);
-        form.getTextField(totalHoursCol1[j]).setText(getNumberOfHours(workEvents[i].startTime, workEvents[i].endTime));
+        let hours = getNumberOfHours(workEvents[i].startTime, workEvents[i].endTime);
+        form.getTextField(totalHoursCol1[j]).setText(hours+"");
+        firsthalftotal += hours;
         j += 1;
       }
 
@@ -254,10 +258,15 @@ async function fillPdfForm(input, user, workEvents ) {
         form.getTextField(inCol3[k]).setText(workEvents[i].startTime);
         form.getTextField(outCol3[k]).setText(workEvents[i].endTime);
         form.getTextField(classCol2[k]).setText(classname);
-        form.getTextField(totalHoursCol2[k]).setText(getNumberOfHours(workEvents[i].startTime, workEvents[i].endTime));
+        let hours = getNumberOfHours(workEvents[i].startTime, workEvents[i].endTime)
+        form.getTextField(totalHoursCol2[k]).setText(hours+"");
+        secondhalftotal += hours;
         k += 1;
       }
     }
+    // Supposed to automatically calculate hours but it doesn't maybe because lack of manual text trigger?
+    form.getTextField("Total HoursTotal Week 1 automatically calculates").setText(firsthalftotal+"");
+    form.getTextField("Total HoursTotal Week 2 automatically calculates").setText(secondhalftotal+"");
 
 		return pdfDoc;
 	} catch (err) {
