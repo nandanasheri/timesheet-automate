@@ -138,14 +138,13 @@ async function getWorkHours(auth) {
       }
     }
   }
-  console.log(workEvents);
   return workEvents;
 }
 
 
 
 // function to fill out PDF Form using pdf-lib - define text fields according to timesheet template
-async function fillPdfForm(input, workEvents ) {
+async function fillPdfForm(input, user, workEvents ) {
 	try {
 		const response = await axios.get(input, {
 			responseType: 'arraybuffer',
@@ -183,12 +182,12 @@ async function fillPdfForm(input, workEvents ) {
     const totalHoursCol2 = ['TotalHoursRow1_2', 'TotalHoursRow2_2', 'TotalHoursRow3_2', 'TotalHoursRow4_2', 'TotalHoursRow5_2', 'TotalHoursRow6_2', 'TotalHoursRow7_2', 'TotalHoursRow8'];
         
 		// Set the values for the form fields.
-		nameField.setText('Nandana');
-		UINField.setText('678725986');
-		emailField.setText('nsher3@uic.edu');
-		beginField.setText('5/12/2024');
-    endField.setText('5/25/2024');
-    dateField.setText('5/24/2024');
+		nameField.setText(user.firstName + " " + user.lastName);
+		UINField.setText(user.uin);
+		emailField.setText(user.email);
+		beginField.setText(user.start);
+    endField.setText(user.end);
+    dateField.setText(user.signdate);
 
     // Set work Hours
     let j = 0;
@@ -233,9 +232,21 @@ async function saveFilledForm(pdfDoc, output) {
 
 async function generatepdf(workEvents) {
 	const input = 'https://www.cs.uic.edu/~grad/Student_Time_Sheet_Fillable.pdf';
-	const output = 'output.pdf';
 
-	const pdfDoc = await fillPdfForm(input, workEvents);
+  const user = {
+    firstName : "Nandana",
+    lastName : "Sheri", 
+    email : "nsher3@uic.edu",
+    uin : "678725986",
+    start: "5/12/2024",
+    end: "5/25/2024",
+    signdate: "5/24/2024"
+  }
+
+  const endsplit = user.end.split('/');
+  const formatend = endsplit[0]+endsplit[1]+endsplit[2];
+  const output = user.lastName + '_' + user.firstName + '_Timesheet_' + formatend + '.pdf';
+	const pdfDoc = await fillPdfForm(input, user, workEvents);
 	await saveFilledForm(pdfDoc, output);
 }
 
