@@ -1,5 +1,6 @@
 credentials.json
 token.json
-node_modules
+user.json
 package.json
 package-lock.json
+node_modules/
