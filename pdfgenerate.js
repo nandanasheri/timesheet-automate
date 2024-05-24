@@ -238,31 +238,55 @@ async function fillPdfForm(input, user, workEvents ) {
     const classname = "CS141";
     let firsthalftotal = 0.0;
     let secondhalftotal = 0.0;
+    let prevDate = 0;
+    let prevHours = 0.0;
     for (let i = 0; i < workEvents.length; i++) {
+      let isRightCol = false;   // flag for checking whether the entry is on the same day as the previous entry
+      let hours = getNumberOfHours(workEvents[i].startTime, workEvents[i].endTime);
+      // previous date and new date are the same -> set entry in the second column and save a row
+      if (prevDate == workEvents[i].date) {
+        isRightCol = true;
+      }
 
       // first half of pdf
       if (workEvents[i].period === 1) {
+        if (isRightCol) {
+          j -= 1;
+          form.getTextField(inCol2[j]).setText(workEvents[i].startTime);
+          form.getTextField(outCol2[j]).setText(workEvents[i].endTime);
+          form.getTextField(totalHoursCol1[j]).setText(hours + prevHours +"");
+        }
+        else {
+          form.getTextField(inCol1[j]).setText(workEvents[i].startTime);
+          form.getTextField(outCol1[j]).setText(workEvents[i].endTime);
+          form.getTextField(totalHoursCol1[j]).setText(hours +"");
+        }
         form.getTextField(dateCol1[j]).setText(workEvents[i].date);
-        form.getTextField(inCol1[j]).setText(workEvents[i].startTime);
-        form.getTextField(outCol1[j]).setText(workEvents[i].endTime);
         form.getTextField(classCol1[j]).setText(classname);
-        let hours = getNumberOfHours(workEvents[i].startTime, workEvents[i].endTime);
-        form.getTextField(totalHoursCol1[j]).setText(hours+"");
         firsthalftotal += hours;
         j += 1;
       }
 
       // second half of pdf
       else if (workEvents[i].period === 2) {
+        if (isRightCol) {
+          k -= 1;
+          form.getTextField(inCol4[k]).setText(workEvents[i].startTime);
+          form.getTextField(outCol4[k]).setText(workEvents[i].endTime);
+          form.getTextField(totalHoursCol2[k]).setText(hours + prevHours +"");
+        }
+        else {
+          form.getTextField(inCol3[k]).setText(workEvents[i].startTime);
+          form.getTextField(outCol3[k]).setText(workEvents[i].endTime);
+          form.getTextField(totalHoursCol2[k]).setText(hours +"");
+        }
         form.getTextField(dateCol2[k]).setText(workEvents[i].date);
-        form.getTextField(inCol3[k]).setText(workEvents[i].startTime);
-        form.getTextField(outCol3[k]).setText(workEvents[i].endTime);
         form.getTextField(classCol2[k]).setText(classname);
-        let hours = getNumberOfHours(workEvents[i].startTime, workEvents[i].endTime)
-        form.getTextField(totalHoursCol2[k]).setText(hours+"");
         secondhalftotal += hours;
         k += 1;
       }
+      prevDate = workEvents[i].date;
+      prevHours = hours;
     }
     // Supposed to automatically calculate hours but it doesn't maybe because lack of manual text trigger?
     form.getTextField("Total HoursTotal Week 1 automatically calculates").setText(firsthalftotal+"");
