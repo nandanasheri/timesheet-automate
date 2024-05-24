@@ -140,7 +140,7 @@ async function getWorkHours(auth) {
   // Term to search by - could be user input in the future
   const keyword = "TA";
   const startDate = "2024-5-12";
-  const endDate = "2024-5-25";
+  const endDate = "2024-5-26";
   const midpoint = "2024-5-20";
   const allCalendars = res.data.items;
   const workEvents = [];
@@ -215,7 +215,7 @@ async function fillPdfForm(input, user, workEvents ) {
 
     const outCol1 = ['ClassTutorRow1', 'ClassTutorRow2', 'ClassTutorRow3', 'ClassTutorRow4', 'ClassTutorRow5', 'ClassTutorRow6', 'ClassTutorRow7'];
     const outCol2 = ['OutRow1_2', 'OutRow2_2', 'OutRow3_2', 'OutRow4_2', 'OutRow5_2', 'OutRow6_2', 'OutRow7_2'];
-    const outCol3 = ['ClassTutorRow1_2', 'ClassTutorRow2_2', 'ClassTutorRow3_2', 'ClassTutorRow4_2', 'ClassTutorRow5_2', 'Class6TutorRow_2', 'ClassTutorRow7_2', 'ClassTutorRow8'];
+    const outCol3 = ['ClassTutorRow1_2', 'ClassTutorRow2_2', 'ClassTutorRow3_2', 'ClassTutorRow4_2', 'ClassTutorRow5_2', 'ClassTutorRow6_2', 'ClassTutorRow7_2', 'ClassTutorRow8'];
     const outCol4 = ['OutRow1_4', 'OutRow2_4', 'OutRow3_4', 'OutRow4_4', 'OutRow5_4', 'OutRow6_4', 'OutRow7_4', 'OutRow8_2'];
 
     const classCol1 = ['OutRow1', 'OutRow2', 'OutRow3', 'OutRow4', 'OutRow5', 'OutRow6', 'OutRow7'];
