@@ -6,7 +6,13 @@ import {PDFDocument} from 'pdf-lib';
 import fs from 'fs';
 import axios from "axios";
 import process from "process";
+import path, { dirname } from 'path';
+import { fileURLToPath } from 'url';
 import {formatTime, getNumberOfHours} from "./helpers.js";
+
+// Define __dirname for ES modules (by defualt in CommonJS)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app = express();
 const PORT = process.env.NODE_ENV || 8000;
@@ -197,7 +203,8 @@ async function fillPdfForm(input, user, workEvents ) {
 async function saveFilledForm(pdfDoc, output) {
 	try {
 		const filledFormBytes = await pdfDoc.save();
-		fs.writeFileSync(output, filledFormBytes);
+    const filePath = path.join(__dirname, output);
+		fs.writeFileSync(filePath, filledFormBytes);
 		console.log('Filled form saved successfully!');
 	} catch (err) {
 		console.error('Error saving filled form:', err);
@@ -249,7 +256,7 @@ app.get('/google/redirect', async (req, res) => {
     
     oauth2Client.setCredentials(tokens);
     res.send({
-        msg : "You have successfully logged in"
+        msg : "success"
     });
 });
 
@@ -258,8 +265,8 @@ app.get('/generatepdf', async (req, res) => {
     // get work hours from Google Calendar API and generate PDF - returns pdf
     getWorkHours(oauth2Client).then((workEvents) => {
         generatepdf(workEvents).then((pdf_filename) => {
-            const filePath = `../${pdf_filename}`;
-            console.log(filePath);
+          // add absolute path
+          const filePath = path.join(__dirname, pdf_filename);
             if (!fs.existsSync(filePath)) {
                 throw Error("file does not exist");
             }
