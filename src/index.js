@@ -6,6 +6,7 @@ import {PDFDocument} from 'pdf-lib';
 import fs from 'fs';
 import axios from "axios";
 import process from "process";
+import {formatTime, getNumberOfHours} from "./helpers.js";
 
 const app = express();
 const PORT = process.env.NODE_ENV || 8000;
@@ -21,66 +22,6 @@ const calendar = google.calendar({
     auth: oauth2Client,
 });
 
-/**
- * Function to format time correctly for pdf
- * @param {*} hours 
- * @param {*} minutes 
- * @returns formatted time
- */
-function formatTime(hours, minutes) {
-    const ampm = hours >= 12 ? 'PM' : 'AM';
-    hours = hours % 12;
-    hours = hours ? hours : 12; // The hour '0' should be '12'
-    // Format minutes to always have two digits
-    const minutesStr = minutes < 10 ? '0' + minutes : minutes;
-    return hours+":"+minutesStr+" "+ampm;
-}
-
-/**
- * for number of hours worked for each time period
- */
-function getNumberOfHours (start, end) {
-    const startsplit = start.split(' ');
-    const endsplit = end.split(' ');
-    const starttime = startsplit[0].split(":");
-    const endtime = endsplit[0].split(":");
-    let starthours =  parseInt(starttime[0], 10);
-    let endhours =  parseInt(endtime[0], 10);
-    let startmin = 0.0;
-    let endmin =  0.0;
-  
-    // Convert to 24 hour time
-    if (startsplit[1] === "PM" && starttime[0] != "12") {
-      starthours += 12;
-    }
-    if (endsplit[1] === "PM" && endtime[0] != "12") {
-      endhours += 12;
-    }
-  
-    if (starttime[1] === "15") {
-      startmin = 0.25;
-    }
-    else if (starttime[1] === "30") {
-      startmin = 0.5;
-    }
-    else if (starttime[1] === "45") {
-      startmin = 0.75;
-    }
-  
-    if (endtime[1] === "15") {
-      endmin = 0.25;
-    }
-    else if (endtime[1] === "30") {
-      endmin = 0.5;
-    }
-    else if (endtime[1] === "45") {
-      endmin = 0.75;
-    }
-  
-    let diff = (endhours+endmin) - (starthours+startmin)
-    return diff;
-  
-}
 
 /**
  * Lists events or work hours for particular keyword within timesheet period
@@ -253,6 +194,15 @@ async function fillPdfForm(input, user, workEvents ) {
 	}
 }
 
+async function saveFilledForm(pdfDoc, output) {
+	try {
+		const filledFormBytes = await pdfDoc.save();
+		fs.writeFileSync(output, filledFormBytes);
+		console.log('Filled form saved successfully!');
+	} catch (err) {
+		console.error('Error saving filled form:', err);
+	}
+}
 
 async function generatepdf(workEvents) {
     const input = 'https://www.cs.uic.edu/~grad/Student_Time_Sheet_Fillable.pdf';
@@ -270,18 +220,10 @@ async function generatepdf(workEvents) {
   const endsplit = user.end.split('/');
   const formatend = endsplit[0]+endsplit[1]+endsplit[2];
   const output = user.lastName + '_' + user.firstName + '_Timesheet_' + formatend + '.pdf';
-	const pdfDoc = await fillPdfForm(input, user, workEvents);
-	await saveFilledForm(pdfDoc, output);
-}
-
-async function saveFilledForm(pdfDoc, output) {
-	try {
-		const filledFormBytes = await pdfDoc.save();
-		fs.writeFileSync(output, filledFormBytes);
-		console.log('Filled form saved successfully!');
-	} catch (err) {
-		console.error('Error saving filled form:', err);
-	}
+  const pdfDoc = await fillPdfForm(input, user, workEvents);
+  await saveFilledForm(pdfDoc, output);
+  // return name of pdf
+  return output;
 }
 
 // generate a url that asks permissions for Google Calendar scopes
@@ -315,12 +257,19 @@ app.get('/google/redirect', async (req, res) => {
 app.get('/generatepdf', async (req, res) => {
     // get work hours from Google Calendar API and generate PDF - returns pdf
     getWorkHours(oauth2Client).then((workEvents) => {
-        generatepdf(workEvents)
-    }).catch(console.error);
+        generatepdf(workEvents).then((pdf_filename) => {
+            const filePath = `..\${pdf_filename}`;
 
-    res.status(200).json({
-        msg : "pdf generated successfully",
-    });
+            if (!fs.existsSync(filePath)) {
+                throw Error("file does not exist");
+            }
+            res.download(filePath, pdf_filename, (err) => {
+                if (err) {
+                    throw Error("error in downloading file")
+                }
+            });
+        })
+    }).catch(console.error);
 })
 
 app.listen(PORT, () => {
