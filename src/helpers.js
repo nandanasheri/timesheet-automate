@@ -1,3 +1,5 @@
+// Helper functions to format time and get hours accordingly for calendar events
+
 /**
  * Function to format time correctly for pdf
  * @param {*} hours 

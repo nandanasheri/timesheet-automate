@@ -258,8 +258,8 @@ app.get('/generatepdf', async (req, res) => {
     // get work hours from Google Calendar API and generate PDF - returns pdf
     getWorkHours(oauth2Client).then((workEvents) => {
         generatepdf(workEvents).then((pdf_filename) => {
-            const filePath = `..\${pdf_filename}`;
-
+            const filePath = `../${pdf_filename}`;
+            console.log(filePath);
             if (!fs.existsSync(filePath)) {
                 throw Error("file does not exist");
             }

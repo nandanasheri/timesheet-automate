@@ -1,3 +1,5 @@
+// script for authentication and generate pdf for internal user only for Google API
+
 const { PDFDocument } = require('pdf-lib');
 const fs = require('fs');
 const axios = require('axios');
