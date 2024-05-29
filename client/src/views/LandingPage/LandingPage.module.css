@@ -1,0 +1,40 @@
+.landing-header{
+    padding: 1.5rem;
+}
+
+.landing-title-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.5rem;
+}
+
+.landing-title-item {
+    width: 48%;
+}
+
+.landing-title {
+    color: #A91D3A;
+    font-weight: 800;
+    font-size: 4.3rem;
+    margin: 0rem;
+}
+
+.landing-title-subtext {
+    margin: 0rem;
+    font-weight: 400;
+    font-size: 2rem;
+    color: #151515;
+}
+
+.landing-title-right {
+    width: 48%;
+    display: flex;
+    justify-content: center;
+}
+
+.landing-title-pdf-container {
+    background-color: #C73659;
+    border-radius: 1rem;
+    padding: 2rem;
+}
+
