@@ -5,7 +5,7 @@ import pandapdf from "../../assets/panda-on-pdf.svg";
 
 function LandingPage() {
     return (
-        <div>
+        <div className={styles["landing-main"]}>
             <div className={styles["landing-header"]}>
                 <img src={timesheetlogo} alt="Logo" />
             </div>
@@ -15,9 +15,9 @@ function LandingPage() {
                     <h4 className={styles["landing-title-subtext"]}>With Timesheet Automate, you can generate a filled timesheet solely by having your work hours on Google Calendar</h4>
                 </div>
                 <div className={styles["landing-title-right"]}>
-                    <img src={pandapdf} alt="Panda on PDF" />
+                    {/* <img className={styles["landing-panda"]} src={pandapdf} alt="Panda on PDF" /> */}
                     <div className={styles["landing-title-pdf-container"]}>
-                        <img src={samplepdf} alt="Sample PDF" />
+                        <img className={styles["landing-title-pdf-form"]} src={samplepdf} alt="Sample PDF" />
                     </div>
                 </div>
             </div>
