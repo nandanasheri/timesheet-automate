@@ -3,6 +3,7 @@ import timesheetlogo from "../../assets/timesheet-cropped.svg";
 import samplepdf from "../../assets/form-sample.svg";
 import pandapdf from "../../assets/panda-on-pdf.svg";
 import arrow from "../../assets/arrow.svg";
+import footerpanda from "../../assets/footer panda.svg";
 import InstructionBox from "../../components/InstructionBox/InstructionBox";
 
 function LandingPage() {
@@ -62,6 +63,14 @@ function LandingPage() {
                     <InstructionBox content={workscontent[1]}/>
                     <InstructionBox content={workscontent[2]}/>
                 </div>
+            </div>
+
+            <div className={styles["landing-works-container"]}>
+                <div style={{display:"flex", alignItems:"center"}}>
+                    <h3 className={styles["landing-footer"]}>Made with &lt;3</h3>
+                    <img src={footerpanda} alt="footerpanda" />
+                </div>
+                <h4 className={styles["landing-footer"]}> Built by Nandana Sheri</h4>
             </div>
         </div>
     );
