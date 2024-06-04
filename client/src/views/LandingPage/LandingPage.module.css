@@ -7,6 +7,10 @@
     padding: 0.5rem;
 }
 
+.landing-logo {
+    height: 2rem;
+}
+
 .landing-title-container {
     display: flex;
     justify-content: space-between;

@@ -34,7 +34,7 @@ function LandingPage() {
     return (
         <div className={styles["landing-main"]}>
             <div className={styles["landing-header"]}>
-                <img src={timesheetlogo} alt="Logo" />
+                <img className={styles["landing-logo"]} src={timesheetlogo} alt="Logo" />
             </div>
             <div className={styles["landing-title-container"]}>
                 <div className={styles["landing-title-item"]}>
