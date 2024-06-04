@@ -14,8 +14,8 @@ function LandingPage() {
                 <div className={styles["landing-title-item"]}>
                     <h1 className={styles["landing-title"]}>Auto fill your time sheets on the click of a button</h1>
                     <h4 className={styles["landing-title-subtext"]}>With Timesheet Automate, you can generate a filled timesheet solely by having your work hours on Google Calendar</h4>
-                    <div className={styles["landing-login-button"]}>
-                        <button type="button">LOG IN</button>
+                    <div>
+                        <button type="button" className={styles["landing-login-button"]}>LOG IN</button>
                     </div>
                 </div>
 
@@ -29,6 +29,9 @@ function LandingPage() {
                         <img className={styles["landing-title-pdf-form"]} src={samplepdf} alt="Sample PDF" />
                     </div>
                 </div>
+            </div>
+            <div className={styles["landing-works-container"]}>
+                <h2 style={{color:"#1E1E1E"}}>How it works</h2>
             </div>
         </div>
     );

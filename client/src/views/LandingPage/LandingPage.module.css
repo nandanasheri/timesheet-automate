@@ -1,15 +1,16 @@
 .landing-main {
     /* background-color: #c4acb0; */
+    padding: 1rem;
 }
 
 .landing-header{
-    padding: 1.5rem;
+    padding: 0.5rem;
 }
 
 .landing-title-container {
     display: flex;
     justify-content: space-between;
-    padding: 1.5rem;
+    padding: 0.5rem;
     /* background-color: rgb(149, 172, 172); */
     flex-shrink: 0;
     gap: 1rem;
@@ -68,17 +69,27 @@
     width: auto;
 }
 
-.landing-login-button > button {
+.landing-login-button {
     font-weight: 400;
     font-size: 1.5rem;
     color: #EEEEEE;
     background-color: #A91D3A;
-    border-radius: 0.7rem;
+    border-radius: 1rem;
     padding-left: 1rem;
     padding-right: 1rem;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
     border: none;
+}
+
+.landing-login-button:hover {
+    background-color: #A91D3A;
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.landing-works-container {
+    background-color: aquamarine;
 }
 
 
