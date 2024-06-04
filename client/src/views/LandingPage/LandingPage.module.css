@@ -1,6 +1,7 @@
 .landing-main {
-    background-color: #b18787;
+    /* background-color: #c4acb0; */
 }
+
 .landing-header{
     padding: 1.5rem;
 }
@@ -9,49 +10,75 @@
     display: flex;
     justify-content: space-between;
     padding: 1.5rem;
-    background-color: aqua;
+    /* background-color: rgb(149, 172, 172); */
+    flex-shrink: 0;
+    gap: 1rem;
 }
 
 .landing-title-item {
-    width: 48%;
-    background-color: antiquewhite;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    /* background-color: aqua; */
+    gap: 1rem;
 }
 
 .landing-title {
     color: #A91D3A;
     font-weight: 800;
-    font-size: 4.3rem;
+    font-size: 4rem;
     margin: 0rem;
 }
 
 .landing-title-subtext {
     margin: 0rem;
     font-weight: 400;
-    font-size: 2rem;
+    font-size: 1.5rem;
     color: #151515;
 }
 
 .landing-title-right {
-    width: 48%;
-    display: flex;
-    justify-content: center;
-    background-color: beige;
+    /* background-color: beige; */
+    position: relative;
 }
 
 .landing-title-pdf-container {
     background-color: #C73659;
     border-radius: 1rem;
     padding: 2rem;
+    height: 20rem;
+
 }
 
 .landing-panda {
     width: auto;
     height: 10rem;
+    position: absolute;
+    left: -6rem;
+    top: -4rem;
+}
+
+.landing-arrow {
+    height: 10rem;
+    margin-top: 7rem;
 }
 
 .landing-title-pdf-form {
-    height: 10rem;
+    height: 20rem;
     width: auto;
+}
+
+.landing-login-button > button {
+    font-weight: 400;
+    font-size: 1.5rem;
+    color: #EEEEEE;
+    background-color: #A91D3A;
+    border-radius: 0.7rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border: none;
 }
 
 
