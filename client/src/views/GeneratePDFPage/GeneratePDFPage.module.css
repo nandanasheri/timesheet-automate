@@ -1,0 +1,38 @@
+.generate-main {
+    /* background-color: aquamarine; */
+    margin: 1.5rem;
+}
+
+.generate-form-title {
+    display: flex;
+    /* background-color: beige; */
+    gap: 1rem;
+    align-items: center;
+    margin: 2rem;
+}
+
+.generate-form-title > h2 {
+    font-size: 1.5rem;
+    color: #1E1E1E;
+}
+
+.generate-logo {
+    height: 2rem;
+}
+
+.generate-circle {
+    background: #1E1E1E;
+    width: 3rem; 
+    height: 3rem;
+    border-radius: 50%;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    color: #EEEEEE;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.generate-panda {
+    height: 8rem;
+}
