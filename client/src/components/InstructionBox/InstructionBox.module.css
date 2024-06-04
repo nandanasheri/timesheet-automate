@@ -1,0 +1,31 @@
+.instruct-container {
+    background-color: #A91D3A;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.instruct-title-container {
+    background-color: cadetblue;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+}
+
+.instruct-title-circle {
+    background: #eeee;
+    width: 4rem; 
+    height: 4rem;
+    border-radius: 50%;
+    display: flex; /* or inline-flex */
+    align-items: center; 
+    justify-content: center;
+    color: #A91D3A;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.instruct-title-container > h2 {
+    color: #eeee;
+}

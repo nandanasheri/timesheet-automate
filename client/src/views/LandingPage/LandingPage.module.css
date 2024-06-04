@@ -90,6 +90,22 @@
 
 .landing-works-container {
     background-color: aquamarine;
+    display: flex;
+    align-items: center;
+    margin-top: 6rem;
+    flex-direction: column;
+}
+
+.landing-works-title {
+    color: #151515;
+    font-size: 1.8rem;
+}
+
+.landing-works-tile-container {
+    background-color: blueviolet;
+    display: flex;
+    gap: 3rem;
+    margin: 1rem;
 }
 
 

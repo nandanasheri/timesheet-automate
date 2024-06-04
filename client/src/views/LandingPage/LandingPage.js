@@ -3,6 +3,7 @@ import timesheetlogo from "../../assets/timesheet-cropped.svg";
 import samplepdf from "../../assets/form-sample.svg";
 import pandapdf from "../../assets/panda-on-pdf.svg";
 import arrow from "../../assets/arrow.svg";
+import InstructionBox from "../../components/InstructionBox/InstructionBox";
 
 function LandingPage() {
     return (
@@ -31,7 +32,12 @@ function LandingPage() {
                 </div>
             </div>
             <div className={styles["landing-works-container"]}>
-                <h2 style={{color:"#1E1E1E"}}>How it works</h2>
+                <h2 className={styles["landing-works-title"]}>How it works</h2>
+                <div className={styles["landing-works-tile-container"]}>
+                    <InstructionBox/>
+                    <InstructionBox/>
+                    <InstructionBox/>
+                </div>
             </div>
         </div>
     );
