@@ -89,7 +89,7 @@
 }
 
 .landing-works-container {
-    background-color: aquamarine;
+    /* background-color: aquamarine; */
     display: flex;
     align-items: center;
     margin-top: 6rem;
@@ -102,10 +102,11 @@
 }
 
 .landing-works-tile-container {
-    background-color: blueviolet;
+    /* background-color: blueviolet; */
     display: flex;
     gap: 3rem;
     margin: 1rem;
+    justify-content: center;
 }
 
 

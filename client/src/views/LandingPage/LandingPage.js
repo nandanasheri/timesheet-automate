@@ -6,6 +6,30 @@ import arrow from "../../assets/arrow.svg";
 import InstructionBox from "../../components/InstructionBox/InstructionBox";
 
 function LandingPage() {
+    const workscontent = [
+        {
+            number : "01",
+            title : "Log in to your Google Account", 
+            pointA : "Add your Work Hours to your Google Calendar",
+            pointB : "Log in to your Google Account to grant access to your Calendar"
+
+        },
+        {
+            number : "02",
+            title : "Fill out your Info", 
+            pointA : "Add your Information like Name, UIN and the timesheet period.",
+            pointB : "Add a keyword to search your calendar against like 'TA' or 'CS141'"
+
+        },
+        {
+            number : "03",
+            title : "Generate PDF!", 
+            pointA : "On click, timesheet automate pulls your work hours from your Google Calendar and fills out your timesheet",
+            pointB : "Check your downloads for pdf!"
+
+        }
+
+    ]
     return (
         <div className={styles["landing-main"]}>
             <div className={styles["landing-header"]}>
@@ -34,9 +58,9 @@ function LandingPage() {
             <div className={styles["landing-works-container"]}>
                 <h2 className={styles["landing-works-title"]}>How it works</h2>
                 <div className={styles["landing-works-tile-container"]}>
-                    <InstructionBox/>
-                    <InstructionBox/>
-                    <InstructionBox/>
+                    <InstructionBox content={workscontent[0]}/>
+                    <InstructionBox content={workscontent[1]}/>
+                    <InstructionBox content={workscontent[2]}/>
                 </div>
             </div>
         </div>

@@ -3,14 +3,17 @@
     border-radius: 1rem;
     display: flex;
     flex-direction: column;
+    width: 30%;
+    position: relative;
 }
 
 .instruct-title-container {
-    background-color: cadetblue;
+    /* background-color: cadetblue; */
     display: flex;
     align-items: center;
     gap: 1rem;
-    padding: 0.5rem 1rem 0.5rem 1rem;
+    padding: 1rem 1.5rem 0.5rem 1.5rem;
+    height: 25%;
 }
 
 .instruct-title-circle {
@@ -18,7 +21,7 @@
     width: 4rem; 
     height: 4rem;
     border-radius: 50%;
-    display: flex; /* or inline-flex */
+    display: flex; 
     align-items: center; 
     justify-content: center;
     color: #A91D3A;
@@ -26,6 +29,17 @@
     font-weight: bold;
 }
 
-.instruct-title-container > h2 {
-    color: #eeee;
+.instruct-subtext{
+    font-weight: 300;
+    padding: 0rem 1rem 0rem 1rem;
+    margin: 0rem;
+    color: #FFFFFF;
+    font-size: 1.5rem;
+}
+
+.instruct-panda {
+    position: absolute;
+    height: 8rem;
+    bottom: -4rem;
+    right: -3rem;
 }
