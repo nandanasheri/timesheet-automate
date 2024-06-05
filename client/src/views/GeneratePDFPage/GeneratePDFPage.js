@@ -2,6 +2,7 @@ import styles from "../GeneratePDFPage/GeneratePDFPage.module.css";
 import timesheetlogo from "../../assets/timesheet-cropped.svg";
 import sadpanda from "../../assets/sadpanda.svg";
 import footerpanda from "../../assets/footer panda.svg";
+import TextField from '@mui/material/TextField';
 
 
 function GeneratePDFPage () {
@@ -14,6 +15,15 @@ function GeneratePDFPage () {
                 <div className={styles["generate-circle"]}>01</div>
                 <h2>Fill out the following details:</h2>
                 <img className={styles["generate-panda"]} src={sadpanda} alt="sadpanda"></img>
+            </div>
+
+            <div className={styles["generate-form-container"]}>
+                <div className={styles["generate-inner-container"]}>yo
+                </div>
+                <div className={styles["generate-inner-container"]}> yo
+                </div>
+                <div className={styles["generate-inner-container"]}>yo
+                </div>
             </div>
 
             <div className={styles["generate-form-title"]}>

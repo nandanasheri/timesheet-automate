@@ -18,8 +18,6 @@
 
 .instruct-title-circle {
     background: #eeee;
-    width: 4rem; 
-    height: 4rem;
     border-radius: 50%;
     display: flex; 
     align-items: center; 
@@ -27,6 +25,7 @@
     color: #A91D3A;
     font-size: 2rem;
     font-weight: bold;
+    padding: 0.5rem;
 }
 
 .instruct-subtext{
