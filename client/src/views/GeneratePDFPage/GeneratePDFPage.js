@@ -3,7 +3,7 @@ import timesheetlogo from "../../assets/timesheet-cropped.svg";
 import sadpanda from "../../assets/sadpanda.svg";
 import footerpanda from "../../assets/footer panda.svg";
 import TextField from '@mui/material/TextField';
-import * as React from 'react';
+import { useState } from "react";
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -11,6 +11,22 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 
 function GeneratePDFPage () {
+    const [uin, setUin] = useState("");
+    const [key, setKey] = useState("");
+    const [startdate, setStartdate]  = useState("");
+    const [enddate, setEnddate] = useState("");
+    const [classTA, setClassTA] = useState("");
+
+    function handleSubmit () {
+      console.log ({
+        "uin" : uin,
+        "search key" : key,
+        "startdate" : startdate,
+        "enddate" : enddate,
+        "classTA" : classTA
+      })
+    }
+
     return (
         <div className={styles["generate-main"]}>
             <div>
@@ -26,11 +42,17 @@ function GeneratePDFPage () {
                 <div className={styles["generate-inner-container"]}>
                     <div className={styles["generate-text-container"]}>
                         <h4 className={styles["generate-form-text"]}>UIN *</h4>
-                        <TextField  className={styles["generate-textfield"]} id="outlined-basic" label="UIN" variant="outlined"/>
+                        <TextField required className={styles["generate-textfield"]} id="outlined-basic" label="UIN" variant="outlined"
+                        onChange={(e)=>{
+                          setUin(e.target.value);
+                        }}/>
                     </div>
                     <div className={styles["generate-text-container"]}>
                         <h4 className={styles["generate-form-text"]}>Search keyword * (eg. 'Office Hours')</h4>
-                        <TextField className={styles["generate-textfield"]} id="outlined-basic" label="Keyword" variant="outlined"/>
+                        <TextField required className={styles["generate-textfield"]} id="outlined-basic" label="Keyword" variant="outlined"
+                        onChange={(e)=>{
+                          setKey(e.target.value);
+                        }}/>
                     </div>
                 </div>
                 <div className={styles["generate-inner-container"]}>
@@ -38,7 +60,15 @@ function GeneratePDFPage () {
                         <h4 className={styles["generate-form-text"]}>Timesheet Start Date *</h4>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DemoContainer components={['DatePicker']}>
-                                <DatePicker className={styles["generate-textfield"]} label="Start Date" />
+                                <DatePicker  className={styles["generate-textfield"]} label="Start Date" 
+                                slotProps={{
+                                  textField: {
+                                    required: true,
+                                  },
+                                }}
+                                onChange={(e)=>{
+                                  setStartdate(e);
+                                }}/>
                             </DemoContainer>
                         </LocalizationProvider>
                     </div>
@@ -46,7 +76,15 @@ function GeneratePDFPage () {
                         <h4 className={styles["generate-form-text"]}>Timesheet End Date *</h4>
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DemoContainer components={['DatePicker']}>
-                                <DatePicker className={styles["generate-textfield"]} label="End Date" />
+                                <DatePicker required className={styles["generate-textfield"]} label="End Date"
+                                slotProps={{
+                                  textField: {
+                                    required: true,
+                                  },
+                                }}
+                                onChange={(e)=>{
+                                  setEnddate(e);
+                                }} />
                             </DemoContainer>
                         </LocalizationProvider>
                     </div>
@@ -54,10 +92,13 @@ function GeneratePDFPage () {
                 <div className={styles["generate-inner-container"]}>
                     <div className={styles["generate-text-container"]}>
                         <h4 className={styles["generate-form-text"]}>Class of Instruction * (eg. 'CS141')</h4>
-                        <TextField className={styles["generate-textfield"]} id="outlined-basic" label="Class" variant="outlined" />
+                        <TextField required className={styles["generate-textfield"]} id="outlined-basic" label="Class" variant="outlined" 
+                        onChange={(e)=>{
+                          setClassTA(e.target.value);
+                        }}/>
                     </div>
                 </div>
-                <button type="button" className={styles["generate-button"]}>Generate Timesheet</button>
+                <button type="button" className={styles["generate-button"]} onClick={handleSubmit}>Generate Timesheet</button>
             </div>
 
             <div className={styles["generate-form-title"]}>
