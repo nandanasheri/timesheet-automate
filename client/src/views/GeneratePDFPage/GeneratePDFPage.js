@@ -19,6 +19,7 @@ function GeneratePDFPage () {
             <div className={styles["generate-form-title"]}>
                 <div className={styles["generate-circle"]}>02</div>
                 <h2>Generate PDF:</h2>
+                <button type="button" className={styles["generate-button"]}>GENERATE</button>
             </div>
 
             <div className={styles["generate-form-title"]}>
