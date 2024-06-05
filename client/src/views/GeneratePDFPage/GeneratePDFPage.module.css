@@ -16,7 +16,7 @@
 
 .generate-form-title {
     display: flex;
-    background-color: beige;
+    /* background-color: beige; */
     gap: 1rem;
     align-items: center;
 }
@@ -76,16 +76,18 @@
     font-weight: 400;
     font-size: 1.2rem;
     color: #EEEEEE;
-    background-color: #C73659;
+    background-color: #1E1E1E;
     border-radius: 1rem;
     padding: 0.5rem 1rem 0.5rem 1rem;
+    font-size: 1.5rem;
+    width: 20rem;
     border: none;
 }
 
 .generate-button:hover {
-    background-color: #e44767;
     cursor: pointer;
-    opacity: 0.7;
+    background-color: #A91D3A;
+    color: #EEEEEE;
 }
 
 .generate-form-container {
@@ -100,6 +102,7 @@
     font-size: 1rem;
     font-weight: 400;
     color: #A91D3A;
+    margin: 0;
 }
 
 .generate-inner-container {
@@ -112,4 +115,10 @@
     background-color: white;
     border-radius: 0.7rem;
     width: 15rem;
+}
+
+.generate-text-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
 }
