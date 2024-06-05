@@ -6,7 +6,7 @@
 }
 
 .generate-main {
-    background-color: aquamarine;
+    /* background-color: aquamarine; */
     padding: 2.5rem;
     display: flex;
     flex-direction: column;
@@ -89,9 +89,27 @@
 }
 
 .generate-form-container {
-    background-color: blueviolet;
+    /* background-color: blueviolet; */
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0rem 4rem 0rem 4rem;
+}
+
+.generate-form-text {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #A91D3A;
 }
 
 .generate-inner-container {
-    background-color: chartreuse;
+    /* background-color: chartreuse; */
+    display: flex;
+    gap: 2rem;
+}
+
+.generate-textfield {
+    background-color: white;
+    border-radius: 0.7rem;
+    width: 15rem;
 }

@@ -3,6 +3,11 @@ import timesheetlogo from "../../assets/timesheet-cropped.svg";
 import sadpanda from "../../assets/sadpanda.svg";
 import footerpanda from "../../assets/footer panda.svg";
 import TextField from '@mui/material/TextField';
+import * as React from 'react';
+import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 
 function GeneratePDFPage () {
@@ -18,11 +23,107 @@ function GeneratePDFPage () {
             </div>
 
             <div className={styles["generate-form-container"]}>
-                <div className={styles["generate-inner-container"]}>yo
+                <div className={styles["generate-inner-container"]}>
+                    <div>
+                        <h4 className={styles["generate-form-text"]}>UIN *</h4>
+                        <TextField  className={styles["generate-textfield"]} id="outlined-basic" label="UIN" variant="outlined"
+                        InputProps={{
+                            style: {
+                              border: 'none',
+                            },
+                          }} 
+                          sx={{
+                            '& .MuiOutlinedInput-notchedOutline': {
+                              border: 'none',
+                            },
+                          }}/>
+                    </div>
+                    <div>
+                        <h4 className={styles["generate-form-text"]}>Search keyword * (eg. 'Office Hours')</h4>
+                        <TextField className={styles["generate-textfield"]} id="outlined-basic" label="Keyword" variant="outlined"
+                        InputProps={{
+                            style: {
+                              border: 'none',
+                            },
+                          }} 
+                          sx={{
+                            '& .MuiOutlinedInput-notchedOutline': {
+                              border: 'none',
+                            },
+                          }} />
+                    </div>
                 </div>
-                <div className={styles["generate-inner-container"]}> yo
+                <div className={styles["generate-inner-container"]}>
+                    <div>
+                        <h4 className={styles["generate-form-text"]}>Timesheet Start Date *</h4>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DemoContainer components={['DatePicker']}>
+                                <DatePicker className={styles["generate-textfield"]} label="Start Date" 
+                                InputProps={{
+                                    style: {
+                                      border: 'none',
+                                    },
+                                  }} 
+                                  sx={{
+                                    '& .MuiOutlinedInput-notchedOutline': {
+                                      border: 'none',
+                                    },
+                                  }}/>
+                            </DemoContainer>
+                        </LocalizationProvider>
+                    </div>
+                    <div>
+                        <h4 className={styles["generate-form-text"]}>Timesheet End Date *</h4>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DemoContainer components={['DatePicker']}>
+                                <DatePicker className={styles["generate-textfield"]} label="End Date" 
+                                InputProps={{
+                                    style: {
+                                      border: 'none',
+                                    },
+                                  }} 
+                                  sx={{
+                                    '& .MuiOutlinedInput-notchedOutline': {
+                                      border: 'none',
+                                    },
+                                  }}/>
+                            </DemoContainer>
+                        </LocalizationProvider>
+                    </div>
                 </div>
-                <div className={styles["generate-inner-container"]}>yo
+                <div className={styles["generate-inner-container"]}>
+                    <div>
+                        <h4 className={styles["generate-form-text"]}>Class of Instruction * (eg. 'CS141')</h4>
+                        <TextField className={styles["generate-textfield"]} id="outlined-basic" label="Class" variant="outlined" 
+                        InputProps={{
+                            style: {
+                              border: 'none',
+                            },
+                          }} 
+                          sx={{
+                            '& .MuiOutlinedInput-notchedOutline': {
+                              border: 'none',
+                            },
+                          }}/>
+                    </div>
+                    <div>
+                        <h4 className={styles["generate-form-text"]}>Signature Date *</h4>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DemoContainer components={['DatePicker']}>
+                                <DatePicker className={styles["generate-textfield"]} label="Signature Date" 
+                                InputProps={{
+                                    style: {
+                                      border: 'none',
+                                    },
+                                  }} 
+                                  sx={{
+                                    '& .MuiOutlinedInput-notchedOutline': {
+                                      border: 'none',
+                                    },
+                                  }}/>
+                            </DemoContainer>
+                        </LocalizationProvider>
+                    </div>
                 </div>
             </div>
 
