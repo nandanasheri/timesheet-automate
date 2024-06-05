@@ -1,6 +1,15 @@
+.body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
 .generate-main {
     /* background-color: aquamarine; */
     margin: 1.5rem;
+    gap: 0;
+    flex: 1;
 }
 
 .generate-form-title {
@@ -35,4 +44,30 @@
 
 .generate-panda {
     height: 8rem;
+}
+
+.generate-footer-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    min-height: 50px;
+}
+
+.generate-footer {
+    color: #A91D3A;
+    margin: 0.5rem;
+    font-weight: 400;
+}
+
+.generate-thankyou {
+    display: flex;
+    /* background-color: beige; */
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    margin: 2rem
+}
+
+.generate-thankyou > h2 {
+    color: #A91D3A;
 }
