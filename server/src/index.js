@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 dotenv.config();
 import express from 'express';
+import cors from "cors";
 import { google } from 'googleapis';
 import {PDFDocument} from 'pdf-lib';
 import fs from 'fs';
@@ -13,8 +14,14 @@ import {formatTime, getNumberOfHours} from "./helpers.js";
 // Define __dirname for ES modules (by defualt in CommonJS)
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  optionsSuccessStatus: 200
+};
 
-const app = express();
+let app = express();
+app.use(cors(corsOptions));
+app.use(express.json());
 const PORT = process.env.NODE_ENV || 8000;
 
 const oauth2Client  = new google.auth.OAuth2(
@@ -39,9 +46,9 @@ async function getWorkHours(auth) {
   
     // Term to search by - could be user input in the future
     const keyword = "TA";
-    const startDate = "2024-5-12";
-    const endDate = "2024-5-26";
-    const midpoint = "2024-5-20";
+    const startDate = "2024-5-26";
+    const endDate = "2024-6-08";
+    const midpoint = "2024-6-03";
     const allCalendars = res.data.items;
     const workEvents = [];
   
@@ -219,9 +226,9 @@ async function generatepdf(workEvents) {
     lastName : "Sheri", 
     email : "nsher3@uic.edu",
     uin : "678725986",
-    start: "5/12/2024",
-    end: "5/25/2024",
-    signdate: "5/24/2024"
+    start: "5/26/2024",
+    end: "6/08/2024",
+    signdate: "6/07/2024"
   }
 
   const endsplit = user.end.split('/');
@@ -255,13 +262,20 @@ app.get('/google/redirect', async (req, res) => {
     const {tokens}  = await oauth2Client.getToken(code);
     
     oauth2Client.setCredentials(tokens);
-    res.send({
-        msg : "success"
-    });
+    res.redirect(302, "http://localhost:3000/generate");
 });
+
+app.get('/test', async (req, res) => {
+  res.send({
+      msg : "this works!"
+  });
+});
+
 
 // Route to get work hours from google calendar API
 app.get('/generatepdf', async (req, res) => {
+    const user = req.body
+    console.log("user : ", user);
     // get work hours from Google Calendar API and generate PDF - returns pdf
     getWorkHours(oauth2Client).then((workEvents) => {
         generatepdf(workEvents).then((pdf_filename) => {
@@ -275,6 +289,10 @@ app.get('/generatepdf', async (req, res) => {
                     throw Error("error in downloading file")
                 }
             });
+          //   res.send({
+          //     msg : "file created!",
+          //     filename : pdf_filename
+          // });
         })
     }).catch(console.error);
 })

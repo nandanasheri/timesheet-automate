@@ -5,8 +5,10 @@ import pandapdf from "../../assets/panda-on-pdf.svg";
 import arrow from "../../assets/arrow.svg";
 import footerpanda from "../../assets/footer panda.svg";
 import InstructionBox from "../../components/InstructionBox/InstructionBox";
+import { useNavigate } from "react-router-dom";
 
 function LandingPage() {
+    const navigate = useNavigate();
     const workscontent = [
         {
             number : "01",
@@ -31,6 +33,18 @@ function LandingPage() {
         }
 
     ]
+    const handleLogin = async () => {
+        try {
+            const response = await fetch("http://localhost:8000/google");
+            if (!response.ok) {
+                console.log("error")
+            }
+            const res = await response.json();
+            console.log(res);
+            } catch (error) {
+            console.error(error);
+        }
+    }
     return (
         <div className={styles["landing-main"]}>
             <div className={styles["landing-header"]}>
@@ -41,7 +55,10 @@ function LandingPage() {
                     <h1 className={styles["landing-title"]}>Auto fill your time sheets on the click of a button</h1>
                     <h4 className={styles["landing-title-subtext"]}>With Timesheet Automate, you can generate a filled timesheet solely by having your work hours on Google Calendar</h4>
                     <div>
-                        <button type="button" className={styles["landing-login-button"]}>LOG IN</button>
+                        <form action="http://localhost:8000/google" method="get">
+                        <input type="submit" className={styles["landing-login-button"]} value="LOG IN"/>
+                            {/* <input type="button" className={styles["landing-login-button"]}>LOG IN</input> */}
+                        </form>
                     </div>
                 </div>
 
