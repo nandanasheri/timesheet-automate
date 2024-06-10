@@ -17,7 +17,17 @@ function GeneratePDFPage () {
     const [enddate, setEnddate] = useState("");
     const [classTA, setClassTA] = useState("");
 
-    function handleSubmit () {
+    async function handleSubmit () {
+      try {
+        const response = await fetch("http://localhost:8000/generate");
+        if (!response.ok) {
+            console.log("error")
+        }
+        const res = await response.json();
+        console.log(res);
+        } catch (error) {
+        console.error(error);
+    }
       console.log ({
         "uin" : uin,
         "search key" : key,

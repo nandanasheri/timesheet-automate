@@ -273,7 +273,7 @@ app.get('/test', async (req, res) => {
 
 
 // Route to get work hours from google calendar API
-app.get('/generatepdf', async (req, res) => {
+app.post('/generatepdf', async (req, res) => {
     const user = req.body
     console.log("user : ", user);
     // get work hours from Google Calendar API and generate PDF - returns pdf
