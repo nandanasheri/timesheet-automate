@@ -35,6 +35,13 @@ const calendar = google.calendar({
     auth: oauth2Client,
 });
 
+const pdfinfo = {
+  uin : "",
+  searchkey : "",
+  startdate : ,
+  enddate : ,
+  classTA : ""
+}
 
 /**
  * Lists events or work hours for particular keyword within timesheet period
@@ -271,9 +278,14 @@ app.get('/test', async (req, res) => {
   });
 });
 
+// Route to submit work hours 
+app.post('/submitform', async (req, res) => {
+
+})
+
 
 // Route to get work hours from google calendar API
-app.post('/generatepdf', async (req, res) => {
+app.get('/generatepdf', async (req, res) => {
     console.log('body is ',req.body);
     // get work hours from Google Calendar API and generate PDF - returns pdf
     getWorkHours(oauth2Client).then((workEvents) => {
