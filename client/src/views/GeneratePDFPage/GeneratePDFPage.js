@@ -124,6 +124,29 @@ function GeneratePDFPage () {
                           setClassTA(e.target.value);
                         }}/>
                     </div>
+                    <div className={styles["generate-text-container"]}>
+                        <h4 className={styles["generate-form-text"]}>UIC Email *</h4>
+                        <TextField required className={styles["generate-textfield"]} id="outlined-basic" label="UIC Email" variant="outlined"
+                        onChange={(e)=>{
+                          setUin(e.target.value);
+                        }}/>
+                    </div>
+                </div>
+                <div className={styles["generate-inner-container"]}>
+                    <div className={styles["generate-text-container"]}>
+                        <h4 className={styles["generate-form-text"]}>First Name *</h4>
+                        <TextField required className={styles["generate-textfield"]} id="outlined-basic" label="First Name" variant="outlined"
+                        onChange={(e)=>{
+                          setUin(e.target.value);
+                        }}/>
+                    </div>
+                    <div className={styles["generate-text-container"]}>
+                        <h4 className={styles["generate-form-text"]}>Last Name *</h4>
+                        <TextField required className={styles["generate-textfield"]} id="outlined-basic" label="Last Name" variant="outlined"
+                        onChange={(e)=>{
+                          setKey(e.target.value);
+                        }}/>
+                    </div>
                 </div>
                 <button type="button" className={styles["generate-button"]} onClick={handleSubmit}>Generate Timesheet</button>
             </div>

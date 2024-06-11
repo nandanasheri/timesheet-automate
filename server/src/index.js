@@ -276,6 +276,7 @@ app.get('/google/redirect', async (req, res) => {
     const {tokens}  = await oauth2Client.getToken(code);
     
     oauth2Client.setCredentials(tokens);
+    oauth2Client.
     res.redirect(302, "http://localhost:3000/generate");
 });
 
