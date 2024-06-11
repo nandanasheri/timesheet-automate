@@ -5,7 +5,8 @@ import pandapdf from "../../assets/panda-on-pdf.svg";
 import arrow from "../../assets/arrow.svg";
 import footerpanda from "../../assets/footer panda.svg";
 import InstructionBox from "../../components/InstructionBox/InstructionBox";
-import { useNavigate } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
+import {  Link } from "react-router-dom";
 
 function LandingPage() {
     const navigate = useNavigate();
@@ -48,7 +49,9 @@ function LandingPage() {
     return (
         <div className={styles["landing-main"]}>
             <div className={styles["landing-header"]}>
+            <Link to="/">
                 <img className={styles["landing-logo"]} src={timesheetlogo} alt="Logo" />
+            </Link> 
             </div>
             <div className={styles["landing-title-container"]}>
                 <div className={styles["landing-title-item"]}>

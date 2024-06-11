@@ -9,6 +9,7 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import {  Link } from "react-router-dom";
 
 
 function GeneratePDFPage () {
@@ -54,7 +55,9 @@ function GeneratePDFPage () {
     return (
         <div className={styles["generate-main"]}>
             <div>
+              <Link to="/">
                 <img className={styles["generate-logo"]} src={timesheetlogo} alt="Logo" />
+              </Link>
             </div>
             <div className={styles["generate-form-title"]}>
                 <div className={styles["generate-circle"]}>01</div>
