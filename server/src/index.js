@@ -9,6 +9,7 @@ import axios from "axios";
 import process from "process";
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
+import dayjs from "dayjs";
 import {formatTime, getNumberOfHours} from "./helpers.js";
 
 // Define __dirname for ES modules (by defualt in CommonJS)
@@ -35,11 +36,11 @@ const calendar = google.calendar({
     auth: oauth2Client,
 });
 
-const pdfinfo = {
+let pdfinfo = {
   uin : "",
   searchkey : "",
-  startdate : ,
-  enddate : ,
+  startdate : dayjs(),
+  enddate : dayjs(),
   classTA : ""
 }
 
@@ -278,15 +279,18 @@ app.get('/test', async (req, res) => {
   });
 });
 
-// Route to submit work hours 
+// Route to submit user information and update on server's side
 app.post('/submitform', async (req, res) => {
-
+  console.log('body is ',req.body);
+  pdfinfo = req.body;
+  res.send({
+        msg : "success"
+  });
 })
-
 
 // Route to get work hours from google calendar API
 app.get('/generatepdf', async (req, res) => {
-    console.log('body is ',req.body);
+  console.log('pdf user details', pdfinfo)
     // get work hours from Google Calendar API and generate PDF - returns pdf
     getWorkHours(oauth2Client).then((workEvents) => {
         generatepdf(workEvents).then((pdf_filename) => {
@@ -300,10 +304,6 @@ app.get('/generatepdf', async (req, res) => {
                     throw Error("error in downloading file")
                 }
             });
-          //   res.send({
-          //     msg : "file created!",
-          //     filename : pdf_filename
-          // });
         })
     }).catch(console.error);
 })

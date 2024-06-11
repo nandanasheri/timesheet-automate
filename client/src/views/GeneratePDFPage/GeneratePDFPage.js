@@ -17,25 +17,36 @@ function GeneratePDFPage () {
     const [enddate, setEnddate] = useState("");
     const [classTA, setClassTA] = useState("");
 
-async function handleSubmit () {
-  try {
-    const request = {
-      "uin" : uin,
-      "searchkey" : key,
-      "startdate" : startdate,
-      "enddate" : enddate,
-      "classTA" : classTA
-    }
-    const response = await fetch('http://localhost:8000/generatepdf/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(request),
-    });
-    console.log(response)
-  } catch (error){
-    console.log(error);
-  } 
-}
+  async function handleSubmit () {
+    try {
+      const request = {
+        "uin" : uin,
+        "searchkey" : key,
+        "startdate" : startdate,
+        "enddate" : enddate,
+        "classTA" : classTA
+      }
+      const response = await fetch('http://localhost:8000/submitform', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(request),
+      });
+      var data = await response.json();
+      console.log(data);
+      try {
+        const response = await fetch("http://localhost:8000/generatepdf");
+        if (!response.ok) {
+            console.log("error")
+        }
+        const res = await response.json();
+        console.log(res);
+        } catch (error) {
+        console.error(error);
+      }
+    } catch (error){
+      console.log(error);
+    } 
+  }
 
     return (
         <div className={styles["generate-main"]}>
