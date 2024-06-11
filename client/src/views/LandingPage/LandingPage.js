@@ -5,11 +5,9 @@ import pandapdf from "../../assets/panda-on-pdf.svg";
 import arrow from "../../assets/arrow.svg";
 import footerpanda from "../../assets/footer panda.svg";
 import InstructionBox from "../../components/InstructionBox/InstructionBox";
-import { useNavigate} from "react-router-dom";
 import {  Link } from "react-router-dom";
 
 function LandingPage() {
-    const navigate = useNavigate();
     const workscontent = [
         {
             number : "01",
