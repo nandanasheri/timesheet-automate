@@ -9,8 +9,10 @@ import axios from "axios";
 import process from "process";
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
-import dayjs from "dayjs";
 import {formatTime, getNumberOfHours} from "./helpers.js";
+import dayjs from "dayjs";
+import duration from 'dayjs/plugin/duration.js';
+dayjs.extend(duration)
 
 // Define __dirname for ES modules (by defualt in CommonJS)
 const __filename = fileURLToPath(import.meta.url);
@@ -36,11 +38,11 @@ const calendar = google.calendar({
     auth: oauth2Client,
 });
 
-let pdfinfo = {
+let userinfo = {
   uin : "",
   searchkey : "",
-  startdate : dayjs(),
-  enddate : dayjs(),
+  startdate : "",
+  enddate : "",
   classTA : ""
 }
 
@@ -48,15 +50,19 @@ let pdfinfo = {
  * Lists events or work hours for particular keyword within timesheet period
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
  */
-async function getWorkHours(auth) {
+async function getWorkHours() {
     // Retrieve all calendars
     const res = await calendar.calendarList.list();
-  
-    // Term to search by - could be user input in the future
-    const keyword = "TA";
-    const startDate = "2024-5-26";
-    const endDate = "2024-6-08";
-    const midpoint = "2024-6-03";
+
+    // Term to search by
+    const keyword = userinfo.searchkey;
+    const startDate = userinfo.startdate.split('T')[0];
+
+    let endObj = (new Date(userinfo.enddate));
+    endObj.setDate(endObj.getDate() + 1);
+    const endDate = endObj.toISOString().split("T")[0];
+
+    const midpoint = new Date(((new Date(startDate)).getTime() + (new Date(endDate)).getTime()) / 2);
     const allCalendars = res.data.items;
     const workEvents = [];
   
@@ -93,7 +99,7 @@ async function getWorkHours(auth) {
             date: month + '/' + dt + '/' + year,
             startTime: formatTime(startdate.getHours(), startdate.getMinutes()),
             endTime: formatTime(enddate.getHours(), enddate.getMinutes()),
-            period: startdate <= new Date(midpoint) ? 1 : 2
+            period: startdate <= midpoint ? 1 : 2
           });
         }
       }
@@ -152,7 +158,7 @@ async function fillPdfForm(input, user, workEvents ) {
     // Set work Hours
     let j = 0;
     let k = 0;
-    const classname = "CS141";
+    const classname = userinfo.classTA;
     let firsthalftotal = 0.0;
     let secondhalftotal = 0.0;
     let prevDate = 0;
@@ -233,10 +239,10 @@ async function generatepdf(workEvents) {
     firstName : "Nandana",
     lastName : "Sheri", 
     email : "nsher3@uic.edu",
-    uin : "678725986",
-    start: "5/26/2024",
-    end: "6/08/2024",
-    signdate: "6/07/2024"
+    uin : userinfo.uin,
+    start: dayjs(userinfo.startdate).format("MM/DD/YYYY"),
+    end: dayjs(userinfo.enddate).format("MM/DD/YYYY"),
+    signdate: dayjs().format("MM/DD/YYYY")
   }
 
   const endsplit = user.end.split('/');
@@ -273,16 +279,10 @@ app.get('/google/redirect', async (req, res) => {
     res.redirect(302, "http://localhost:3000/generate");
 });
 
-app.get('/test', async (req, res) => {
-  res.send({
-      msg : "this works!"
-  });
-});
 
 // Route to submit user information and update on server's side
 app.post('/submitform', async (req, res) => {
-  console.log('body is ',req.body);
-  pdfinfo = req.body;
+  userinfo = req.body;
   res.send({
         msg : "success"
   });
@@ -290,9 +290,8 @@ app.post('/submitform', async (req, res) => {
 
 // Route to get work hours from google calendar API
 app.get('/generatepdf', async (req, res) => {
-  console.log('pdf user details', pdfinfo)
     // get work hours from Google Calendar API and generate PDF - returns pdf
-    getWorkHours(oauth2Client).then((workEvents) => {
+    getWorkHours().then((workEvents) => {
         generatepdf(workEvents).then((pdf_filename) => {
           // add absolute path
           const filePath = path.join(__dirname, pdf_filename);
