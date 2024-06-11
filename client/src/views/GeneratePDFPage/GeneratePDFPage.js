@@ -3,6 +3,7 @@ import timesheetlogo from "../../assets/timesheet-cropped.svg";
 import sadpanda from "../../assets/sadpanda.svg";
 import footerpanda from "../../assets/footer panda.svg";
 import TextField from '@mui/material/TextField';
+import download from "downloadjs";
 import { useState } from "react";
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -34,13 +35,15 @@ function GeneratePDFPage () {
       var data = await response.json();
       console.log(data);
       try {
-        const response = await fetch("http://localhost:8000/generatepdf");
-        if (!response.ok) {
+        const responsegen = await fetch("http://localhost:8000/generatepdf");
+        if (!responsegen.ok) {
             console.log("error")
+          }
+        else {
+          const blob = await responsegen.blob();
+          download(blob);
         }
-        const res = await response.json();
-        console.log(res);
-        } catch (error) {
+      } catch (error) {
         console.error(error);
       }
     } catch (error){
