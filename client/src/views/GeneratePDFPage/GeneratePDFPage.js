@@ -10,6 +10,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import {  Link } from "react-router-dom";
+import dayjs from "dayjs";
 
 
 function GeneratePDFPage () {
@@ -18,15 +19,21 @@ function GeneratePDFPage () {
     const [startdate, setStartdate]  = useState("");
     const [enddate, setEnddate] = useState("");
     const [classTA, setClassTA] = useState("");
+    const [firstname, setFirstname] = useState("");
+    const [lastname, setLastname] = useState("");
+    const [email, setEmail] = useState("");
 
   async function handleSubmit () {
     try {
       const request = {
-        "uin" : uin,
-        "searchkey" : key,
-        "startdate" : startdate,
-        "enddate" : enddate,
-        "classTA" : classTA
+        uin : uin,
+        email : email,
+        firstname : firstname,
+        lastname : lastname,
+        searchkey : key,
+        startdate : startdate,
+        enddate : enddate,
+        classTA : classTA
       }
       const response = await fetch('http://localhost:8000/submitform', {
         method: 'POST',
@@ -41,8 +48,11 @@ function GeneratePDFPage () {
             console.log("error")
           }
         else {
+          const formatend = dayjs(enddate).format("MMDDYYYY");
+          const output = lastname + '_' + firstname + '_Timesheet_' + formatend + '.pdf';
+          console.log(output);
           const blob = await responsegen.blob();
-          download(blob);
+          download(blob, output);
         }
       } catch (error) {
         console.error(error);
@@ -128,7 +138,7 @@ function GeneratePDFPage () {
                         <h4 className={styles["generate-form-text"]}>UIC Email *</h4>
                         <TextField required className={styles["generate-textfield"]} id="outlined-basic" label="UIC Email" variant="outlined"
                         onChange={(e)=>{
-                          setUin(e.target.value);
+                          setEmail(e.target.value);
                         }}/>
                     </div>
                 </div>
@@ -137,14 +147,14 @@ function GeneratePDFPage () {
                         <h4 className={styles["generate-form-text"]}>First Name *</h4>
                         <TextField required className={styles["generate-textfield"]} id="outlined-basic" label="First Name" variant="outlined"
                         onChange={(e)=>{
-                          setUin(e.target.value);
+                          setFirstname(e.target.value);
                         }}/>
                     </div>
                     <div className={styles["generate-text-container"]}>
                         <h4 className={styles["generate-form-text"]}>Last Name *</h4>
                         <TextField required className={styles["generate-textfield"]} id="outlined-basic" label="Last Name" variant="outlined"
                         onChange={(e)=>{
-                          setKey(e.target.value);
+                          setLastname(e.target.value);
                         }}/>
                     </div>
                 </div>

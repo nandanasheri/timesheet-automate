@@ -40,6 +40,9 @@ const calendar = google.calendar({
 
 let userinfo = {
   uin : "",
+  email : "",
+  firstname : "",
+  lastname : "",
   searchkey : "",
   startdate : "",
   enddate : "",
@@ -236,9 +239,9 @@ async function generatepdf(workEvents) {
     const input = 'https://www.cs.uic.edu/~grad/Student_Time_Sheet_Fillable.pdf';
 
     const user = {
-    firstName : "Nandana",
-    lastName : "Sheri", 
-    email : "nsher3@uic.edu",
+    firstName : userinfo.firstname,
+    lastName : userinfo.lastname, 
+    email : userinfo.email,
     uin : userinfo.uin,
     start: dayjs(userinfo.startdate).format("MM/DD/YYYY"),
     end: dayjs(userinfo.enddate).format("MM/DD/YYYY"),
@@ -276,7 +279,6 @@ app.get('/google/redirect', async (req, res) => {
     const {tokens}  = await oauth2Client.getToken(code);
     
     oauth2Client.setCredentials(tokens);
-    oauth2Client.
     res.redirect(302, "http://localhost:3000/generate");
 });
 
