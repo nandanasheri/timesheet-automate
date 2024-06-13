@@ -1,7 +1,6 @@
 import styles from "../GeneratePDFPage/GeneratePDFPage.module.css";
 import timesheetlogo from "../../assets/timesheet-cropped.svg";
 import sadpanda from "../../assets/sadpanda.svg";
-import footerpanda from "../../assets/footer panda.svg";
 import TextField from '@mui/material/TextField';
 import download from "downloadjs";
 import { useState } from "react";
@@ -25,7 +24,7 @@ function GeneratePDFPage () {
     const [lastname, setLastname] = useState("");
     const [email, setEmail] = useState("");
     const [isLoading, setIsLoading] = useState(false);
-    const [isDone, setIsDone] = useState(false);
+    const [isDone, setIsDone] = useState(true);
 
   async function handleSubmit () {
     try {
@@ -45,8 +44,6 @@ function GeneratePDFPage () {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(request),
       });
-      var data = await response.json();
-      console.log(data);
       try {
         const responsegen = await fetch("http://localhost:8000/generatepdf");
         if (!responsegen.ok) {
@@ -179,17 +176,6 @@ function GeneratePDFPage () {
                     </div>
                 </div>
                 <button type="button" className={styles["generate-button"]} onClick={handleSubmit}>Generate Timesheet</button>
-            </div>
-            <div className={styles["generate-thankyou"]}>
-                <h2>Thank you for using Timesheet Automate!</h2>
-            </div>
-            
-            <div className={styles["generate-footer-container"]}>
-                <div style={{display:"flex", alignItems:"center"}}>
-                    <h3 className={styles["generate-footer"]}>Made with &lt;3</h3>
-                    <img src={footerpanda} alt="footerpanda" />
-                </div>
-                <h4 className={styles["generate-footer"]}> Built by Nandana Sheri</h4>
             </div>
 
         </div>

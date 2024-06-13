@@ -1,11 +1,24 @@
 .loading-main {
-    height: 100vh;
     width: 100%;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #fcfefc;
     flex-direction: column;
+    padding: 2.5rem;
+}
+
+.completion-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.completion-logo-container {
+    padding-left: 2rem;
+    padding-top: 2rem;
 }
 
 .loading-title {
@@ -19,4 +32,25 @@
 
 .loading-done-panda {
     width: 20rem;
+}
+
+.generate-thankyou > h2 {
+    color: #A91D3A;
+}
+
+.generate-footer-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    min-height: 50px;
+}
+
+.generate-footer {
+    color: #A91D3A;
+    margin: 0.5rem;
+    font-weight: 400;
+}
+
+.generate-logo {
+    height: 2rem;
 }
