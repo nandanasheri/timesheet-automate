@@ -1,0 +1,22 @@
+.loading-main {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fcfefc;
+    flex-direction: column;
+}
+
+.loading-title {
+    font-size: 3rem;
+    color: #C73659;
+}
+
+.loading-panda {
+    width: 19rem;
+}
+
+.loading-done-panda {
+    width: 20rem;
+}

@@ -11,6 +11,8 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import {  Link } from "react-router-dom";
 import dayjs from "dayjs";
+import LoadingPage from "../Loading/LoadingPage";
+import CompletionPage from "../CompletionPage/CompletionPage";
 
 
 function GeneratePDFPage () {
@@ -22,9 +24,12 @@ function GeneratePDFPage () {
     const [firstname, setFirstname] = useState("");
     const [lastname, setLastname] = useState("");
     const [email, setEmail] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+    const [isDone, setIsDone] = useState(false);
 
   async function handleSubmit () {
     try {
+      setIsLoading(true);
       const request = {
         uin : uin,
         email : email,
@@ -53,6 +58,8 @@ function GeneratePDFPage () {
           console.log(output);
           const blob = await responsegen.blob();
           download(blob, output);
+          setIsDone(true);
+          setIsLoading(false);
         }
       } catch (error) {
         console.error(error);
@@ -62,6 +69,19 @@ function GeneratePDFPage () {
     } 
   }
 
+  if (isLoading) {
+    return (
+      <LoadingPage/>
+    )
+  }
+
+  else if (!isLoading && isDone) {
+    return (
+      <CompletionPage/>
+    )
+  }
+
+  else {
     return (
         <div className={styles["generate-main"]}>
             <div>
@@ -160,11 +180,6 @@ function GeneratePDFPage () {
                 </div>
                 <button type="button" className={styles["generate-button"]} onClick={handleSubmit}>Generate Timesheet</button>
             </div>
-
-            <div className={styles["generate-form-title"]}>
-                <div className={styles["generate-circle"]}>02</div>
-                <h2>Check your Downloads!</h2>
-            </div>
             <div className={styles["generate-thankyou"]}>
                 <h2>Thank you for using Timesheet Automate!</h2>
             </div>
@@ -179,6 +194,7 @@ function GeneratePDFPage () {
 
         </div>
     )
+  }
 };
   
 export default GeneratePDFPage;
