@@ -1,6 +1,7 @@
 import styles from "../Loading/LoadingPage.module.css";
 import donepanda from "../../assets/donepanda.png";
 import footerpanda from "../../assets/footer panda.svg";
+import githublogo from "../../assets/github-mark.svg";
 import timesheetlogo from "../../assets/timesheet-cropped.svg"
 import React from "react";
 import {  Link } from "react-router-dom";
@@ -23,7 +24,12 @@ function CompletionPage () {
                         <h3 className={styles["generate-footer"]}>Made with &lt;3</h3>
                         <img src={footerpanda} alt="footerpanda" />
                     </div>
-                    <h4 className={styles["generate-footer"]}> Built by Nandana Sheri</h4>
+                    <div className={styles["landing-footer-container"]}>
+                        <h4 className={styles["landing-footer"]}> Built by Nandana Sheri</h4>
+                        <a href="https://github.com/nandanasheri/timesheet-automate">
+                            <img className={styles["github-logo"]} src={githublogo} alt="GitHubLogo"/>
+                        </a>
+                    </div>  
                 </div>
             </div>
         </div>

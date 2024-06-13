@@ -4,6 +4,7 @@ import samplepdf from "../../assets/form-sample.svg";
 import pandapdf from "../../assets/panda-on-pdf.svg";
 import arrow from "../../assets/arrow.svg";
 import footerpanda from "../../assets/footer panda.svg";
+import githublogo from "../../assets/github-mark.svg";
 import InstructionBox from "../../components/InstructionBox/InstructionBox";
 import {  Link } from "react-router-dom";
 
@@ -88,7 +89,12 @@ function LandingPage() {
                     <h3 className={styles["landing-footer"]}>Made with &lt;3</h3>
                     <img src={footerpanda} alt="footerpanda" />
                 </div>
-                <h4 className={styles["landing-footer"]}> Built by Nandana Sheri</h4>
+                <div className={styles["landing-footer-container"]}>
+                    <h4 className={styles["landing-footer"]}> Built by Nandana Sheri</h4>
+                    <a href="https://github.com/nandanasheri/timesheet-automate">
+                        <img className={styles["github-logo"]} src={githublogo} alt="GitHubLogo"/>
+                    </a>
+                </div>
             </div>
         </div>
     );

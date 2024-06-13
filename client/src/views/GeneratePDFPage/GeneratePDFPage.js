@@ -24,7 +24,7 @@ function GeneratePDFPage () {
     const [lastname, setLastname] = useState("");
     const [email, setEmail] = useState("");
     const [isLoading, setIsLoading] = useState(false);
-    const [isDone, setIsDone] = useState(true);
+    const [isDone, setIsDone] = useState(false);
 
   async function handleSubmit () {
     try {

@@ -1,5 +1,4 @@
 .landing-main {
-    /* background-color: #c4acb0; */
     padding: 2.5rem;
 }
 
@@ -15,7 +14,6 @@
     display: flex;
     justify-content: space-between;
     padding: 0.5rem;
-    /* background-color: rgb(149, 172, 172); */
     flex-shrink: 0;
     gap: 1rem;
 }
@@ -24,7 +22,6 @@
     width: 60%;
     display: flex;
     flex-direction: column;
-    /* background-color: aqua; */
     gap: 1rem;
 }
 
@@ -43,7 +40,6 @@
 }
 
 .landing-title-right {
-    /* background-color: beige; */
     position: relative;
 }
 
@@ -93,7 +89,6 @@
 }
 
 .landing-works-container {
-    /* background-color: aquamarine; */
     display: flex;
     align-items: center;
     margin-top: 6rem;
@@ -106,11 +101,18 @@
 }
 
 .landing-works-tile-container {
-    /* background-color: blueviolet; */
     display: flex;
     gap: 3rem;
     margin: 1rem;
     justify-content: center;
+}
+
+.landing-footer-container {
+    display: flex;
+}
+
+.github-logo {
+    width : 2rem;
 }
 
 .landing-footer {

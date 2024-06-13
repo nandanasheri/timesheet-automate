@@ -54,3 +54,17 @@
 .generate-logo {
     height: 2rem;
 }
+
+.landing-footer-container {
+    display: flex;
+}
+
+.github-logo {
+    width : 2rem;
+}
+
+.landing-footer {
+    color: #A91D3A;
+    margin: 0.5rem;
+    font-weight: 400;
+}
