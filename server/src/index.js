@@ -11,8 +11,6 @@ import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import {formatTime, getNumberOfHours} from "./helpers.js";
 import dayjs from "dayjs";
-import duration from 'dayjs/plugin/duration.js';
-dayjs.extend(duration)
 
 // Define __dirname for ES modules (by defualt in CommonJS)
 const __filename = fileURLToPath(import.meta.url);
