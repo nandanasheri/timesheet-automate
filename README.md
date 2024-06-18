@@ -43,3 +43,18 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+# Getting Started with Backend 
+
+## Available Scripts
+
+In the project directory, you can run:
+
+### `npm run dev`
+
+Runs the app in the development mode. Requires nodemon to be installed. \
+Open [http://localhost:8000](http://localhost:8000) to view it in your browser.
+
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
+
